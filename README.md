@@ -30,6 +30,7 @@
 
 ```bash
 mysql database and prisma ORM
+db url should be as like as .env.dev database url
 ```
 
 ## Installation
