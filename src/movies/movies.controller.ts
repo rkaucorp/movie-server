@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
 import { MoviesService } from './movies.service';
 import { Movie, Prisma } from '@prisma/client';
 import { TokenVerifyMiddleware } from '../users/tokenVerify.middleware';
@@ -14,13 +23,15 @@ export class MoviesController {
   }
 
   @Get('/:skip/:take')
-  findAll(@Param('skip') skip: number, @Param('take') take: number) {
-    const data = { skip, take };
+  findAll(
+    @Param('skip') skip: number,
+    @Param('take') take: number,
+    @Request() req,
+  ) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    const { id } = jwt.decode(token);
+    const data = { skip, take, id };
     return this.moviesService.findAll(data);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.moviesService.findOne(+id);
   }
 }

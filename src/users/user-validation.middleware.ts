@@ -12,12 +12,12 @@ import { emailAddressValidation } from 'src/utils';
 @Injectable()
 export class UserValidationMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    const { email, password, name, operationType } = req.body;
+    const { email, password, name } = req.body;
     if (!emailAddressValidation(email)) {
       throw new BadRequestException('Invalid Email Address');
     } else if (!password) {
       throw new BadRequestException('Password Required');
-    } else if (operationType === 'signup' && !name) {
+    } else if (!name) {
       throw new BadRequestException('Name Required');
     } else {
       next();

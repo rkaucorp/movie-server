@@ -20,8 +20,11 @@ export class MoviesService {
   }
 
   findAll(payload): Promise<Movie[]> {
-    const { skip, take } = payload;
+    const { skip, take, id } = payload;
     return this.prisma.movie.findMany({
+      where: {
+        userId: id,
+      },
       skip: parseInt(skip),
       take: parseInt(take),
     });

@@ -26,10 +26,18 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Requirement
+
+```bash
+mysql database and prisma ORM
+```
+
 ## Installation
 
 ```bash
+$ npm install -g @prisma/client
 $ npm install
+$ prisma migrate dev --name init
 ```
 
 ## Running the app

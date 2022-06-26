@@ -27,5 +27,8 @@ export class AppModule {
     consumer
       .apply(TokenVerifyMiddleware)
       .forRoutes({ path: 'movies', method: RequestMethod.POST });
+    consumer
+      .apply(TokenVerifyMiddleware)
+      .forRoutes({ path: 'movies/:skip/:take', method: RequestMethod.GET });
   }
 }
